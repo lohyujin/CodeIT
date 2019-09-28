@@ -11,7 +11,6 @@ mod = Blueprint('chessgame', __name__)
 
 @mod.route('/chessgame')
 def evaluate():
-    return "chessgame evaluated!"
     data = request.get_json();
     logging.info("data sent for evaluation {}".format(data))
     inputValue = data.get("input");
