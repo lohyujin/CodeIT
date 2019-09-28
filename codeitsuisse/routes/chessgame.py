@@ -9,12 +9,8 @@ logger = logging.getLogger(__name__)
 
 mod = Blueprint('chessgame', __name__)
 
-@mod.route('/chessgame')
+@mod.route('/chessgame', methods=['POST'])
 def evaluate():
-<<<<<<< HEAD
-=======
-    # return "chessgame evaluated!"
->>>>>>> 3c2181c1a82021f323eca3577d45fbf54c73679c
     data = request.get_json();
     logging.info("data sent for evaluation {}".format(data))
     inputValue = data.get("input");
@@ -34,46 +30,55 @@ def evaluate():
 
     result = 0
     i, j = k
-    for a in range(0, j, -1):
-        result += 1
-        if (i, a) in x:
+    # horizontal
+    for a in range(j-1, -1, -1):
+        if (i, a) not in x:
+            result += 1
+        else:
             break
 
     for a in range(j+1, n):
-        result += 1
-        if (i, a) in x:
+        if (i,a) not in x:
+            result += 1
+        else:
             break
 
-    
-    for a in range(0, i, -1):
-        result += 1
-        if (a, j) in x:
+    # vertical
+    for a in range(i-1, -1, -1):
+        if (a, j) not in x:
+            result += 1
+        else:
             break
 
     for a in range(i+1, n):
-        result += 1
-        if (a, j) in x:
+        if (a, j) not in x:
+            result += 1
+        else:
             break
     
-
+    # diagonal
     for a in range(min(i, j)):
-        result += 1
-        if (i-a, j-a) in x:
+        if (i-a, j-a) not in x:
+            result += 1
+        else:
             break
 
     for a in range(min(i, n-j-1)):
-        result += 1
-        if (i-a, j+a) in x:
+        if (i-a-1, j+a+1) not in x:
+            result += 1
+        else:
             break
 
     for a in range(min(n-i-1, j)):
-        result += 1
-        if (i+a, j-a) in x:
+        if (i+a+1, j-a-1) not in x:
+            result += 1
+        else:
             break
 
     for a in range(min(n-i-1, n-j-1)):
-        result += 1
-        if (i+a, j+a) in x:
+        if (i+a+1, j+a+1) not in x:
+            result += 1
+        else:
             break
 
     logging.info("My result :{}".format(result))
