@@ -151,6 +151,8 @@ data = request.get_json()
 
     # ------- end of greedy -----------
 
+    
+    answer = sorted(master, key = lambda i: i['profit'], reverse=True)
 
     logging.info("My result :{}".format(answer[0]))
     return json.dumps(answer[0])
