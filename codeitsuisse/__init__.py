@@ -1,6 +1,9 @@
-from flask import Flask;
+from flask import Flask, Blueprint
 app = Flask(__name__)
-from codeitsuisse.routes import square
+
+from codeitsuisse.routes.square import square
 
 
-app.register_blueprint(square.mod)
+
+
+
