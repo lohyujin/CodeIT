@@ -30,23 +30,23 @@ def maximise_1a():
     stocks = data.get("stocks")
 
     # ---- Greedy algo start ----------
-    # npstocks = np.array(stocks)
-    # small = []
-    # for i in stocks:
-    #     small.append([i[1]/i[2]])
+    npstocks = np.array(stocks)
+    small = []
+    for i in stocks:
+        small.append([i[1]/i[2]])
 
-    # yields = np.array(small)
-    # stocks = np.append(npstocks, yields, axis=1)
-    # stocks[stocks[:,3].argsort()]
-    # # print(stocks)
+    yields = np.array(small)
+    stocks = np.append(npstocks, yields, axis=1)
+    stocks[stocks[:,3].argsort()]
+    # print(stocks)
 
-    # for stock in stocks.tolist()[::-1]:
-    #     if capital > float(stock[2]):
-    #         result['portfolio'].append(stock[0])
-    #         result['profit'] += float(stock[1])
-    #         capital -= float(stock[2])
+    for stock in stocks.tolist()[::-1]:
+        if capital > float(stock[2]):
+            result['portfolio'].append(stock[0])
+            result['profit'] += float(stock[1])
+            capital -= float(stock[2])
 
-    # master.append(result)
+    master.append(result)
 
     # ------- end of greedy -----------
 
@@ -56,7 +56,7 @@ def maximise_1a():
                 "portfolio":[]
                 }
 
-    for count in range(1,len(stocks)+1):
+    for count in range(1,(len(stocks)+1)//2):
         cur = 0
 
         price = 0
@@ -151,7 +151,7 @@ data = request.get_json()
 
     # ------- end of greedy -----------
 
-    
+
     answer = sorted(master, key = lambda i: i['profit'], reverse=True)
 
     logging.info("My result :{}".format(answer[0]))
