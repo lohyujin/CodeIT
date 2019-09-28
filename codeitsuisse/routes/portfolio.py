@@ -16,16 +16,16 @@ maximise = Blueprint('maximise_1a', __name__)
 def maximise_1a():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-    inputValue = data.get("input")
+    # inputValue = data.get("startingCapital")
 
         
     result = { "profit": 0,
                 "portfolio":[]
                 }
 
-    capital = inputValue['startingCapital']
+    capital = data.get("startingCapital")
     # 2d array
-    stocks = inputValue['stocks']
+    stocks = data.get("stocks")
     npstocks = np.array(stocks)
     small = []
     for i in stocks:
