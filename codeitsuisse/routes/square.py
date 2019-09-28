@@ -5,9 +5,9 @@ from flask import request, jsonify, Blueprint
 
 from codeitsuisse import app
 
-logger = logging.getLogger(name)
+logger = logging.getLogger(__name__)
 
-square = Blueprint('square', name)
+square = Blueprint('square', __name__)
 
 @square.route('/square', methods=['POST'])
 def evaluate():
