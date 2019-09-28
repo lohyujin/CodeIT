@@ -57,15 +57,17 @@ def evaluate():
     output = topological(adjacent_list)
 
     # no error
-    if len(output)-1 == output.index(''):
-        output = output[::-1]
-        result = output[1:]
+    if '' in output:
+        if len(output)-1 == output.index(''):
+            output = output[::-1]
+            result = output[1:]
+        else:
+            for item in output:
+                if item == '':
+                    break
+                result.append(item)
     else:
-        for item in output:
-            if item == '':
-                break
-            result.append(item)
-
+        result = output
 
 
     logging.info("My result :{}".format(result[1:]))
