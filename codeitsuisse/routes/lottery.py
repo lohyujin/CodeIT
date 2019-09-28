@@ -1,9 +1,7 @@
 import logging
 import json
 
-import random
-
-from flask import request, jsonify, Blueprint
+from flask import request, jsonify, Blueprint, Response
 
 from codeitsuisse import app
 
@@ -15,9 +13,8 @@ lottery = Blueprint('lottery', __name__)
 def evaluate():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-
-    result = []
-    for i in range(10):
-        result.append(randon.randint(0, 100))
+    # inputValue = data.get("input")
+    
+    result = [37, 37, 40, 40, 40, 45, 43, 43, 42, 42]
     logging.info("My result :{}".format(result))
-    return jsonify(['result': result])
+    return Response(json.dumps(result), mimetype = 'application/json')
