@@ -19,10 +19,9 @@ def evaluate():
     dependencyPairs = data.get("dependencyPairs")
 
 
-
     modules = data.get("modules")
     dependencyPairs = data.get("dependencyPairs")
-    output_stack = []
+    result = []
 
     # adjacent list
     adjacent_list = defaultdict()
@@ -55,9 +54,17 @@ def evaluate():
 
     # print(output_stack)
 
-    output_stack = topological(adjacent_list)
+    output = topological(adjacent_list)
 
-    result = list(output_stack)[::-1]
+    # no error
+    if len(output)-1 == output.index(''):
+        output = output[::-1]
+        result = output[1:]
+    else:
+        for item in output:
+            if item == '':
+                break
+            result.append(item)
 
 
 
