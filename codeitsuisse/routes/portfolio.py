@@ -81,7 +81,7 @@ def maximise_1a():
             profit = sum(map(int, xponse[1].tolist()))
             cur = sum(map(int, xponse[2].tolist()))
             # print(cur)
-            if capitall == cur:
+            if capitall - cur > 10:
                 mod['profit'] = profit
                 mod['portfolio'] = port
                 # print(port)
