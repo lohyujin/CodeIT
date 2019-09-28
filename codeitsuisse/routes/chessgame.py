@@ -9,17 +9,21 @@ logger = logging.getLogger(__name__)
 
 mod = Blueprint('chessgame', __name__)
 
-@mod.route('/chessgame')
+@mod.route('/chessgame', methods=['POST'])
 def evaluate():
     # return "chessgame evaluated!"
-    data = request.get_json();
+    data = request.get_json()
+    print(type(data))
     logging.info("data sent for evaluation {}".format(data))
-    inputValue = data.get("input");
+    inputValue = data
+
+    print(inputValue)
 
 
     n = len(inputValue)
 
     x = []
+    k = ('','')
     for i in range(len(inputValue)):
         row = inputValue[i]
         for j in range(len(row)):
@@ -30,48 +34,49 @@ def evaluate():
                 x.append((i, j))
 
     result = 0
-    i, j = k
-    for a in range(0, j, -1):
-        result += 1
-        if (i, a) in x:
-            break
+    if(k != ('','')):
+        
+        i, j = k
+        for a in range(0, j, -1):
+            result += 1
+            if (i, a) in x:
+                break
 
-    for a in range(j+1, n):
-        result += 1
-        if (i, a) in x:
-            break
+        for a in range(j+1, n):
+            result += 1
+            if (i, a) in x:
+                break
 
-    
-    for a in range(0, i, -1):
-        result += 1
-        if (a, j) in x:
-            break
+        
+        for a in range(0, i, -1):
+            result += 1
+            if (a, j) in x:
+                break
 
-    for a in range(i+1, n):
-        result += 1
-        if (a, j) in x:
-            break
-    
+        for a in range(i+1, n):
+            result += 1
+            if (a, j) in x:
+                break
+        
 
-    for a in range(min(i, j)):
-        result += 1
-        if (i-a, j-a) in x:
-            break
+        for a in range(min(i, j)):
+            result += 1
+            if (i-a, j-a) in x:
+                break
 
-    for a in range(min(i, n-j-1)):
-        result += 1
-        if (i-a, j+a) in x:
-            break
+        for a in range(min(i, n-j-1)):
+            result += 1
+            if (i-a, j+a) in x:
+                break
 
-    for a in range(min(n-i-1, j)):
-        result += 1
-        if (i+a, j-a) in x:
-            break
+        for a in range(min(n-i-1, j)):
+            result += 1
+            if (i+a, j-a) in x:
+                break
 
-    for a in range(min(n-i-1, n-j-1)):
-        result += 1
-        if (i+a, j+a) in x:
-            break
-
+        for a in range(min(n-i-1, n-j-1)):
+            result += 1
+            if (i+a, j+a) in x:
+                break
     logging.info("My result :{}".format(result))
-    return json.dumps(result);
+    return json.dumps(result)
