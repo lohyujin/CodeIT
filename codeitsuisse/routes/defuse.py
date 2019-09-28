@@ -42,7 +42,10 @@ def evaluate():
                             subtotal *= k
                         else:
                             subtotal *= 1
-                        total += subtotal
+                        num = password.count(-1) - sub_array.count(-1)
+                        if num > 0:
+                            subtotal *= num * k
+                        total += subtotal 
                     # if sub_array == sub_array[::-1]:
                     #     num_rand = sub_array.count(-1)
                     #     if num_rand % 2 == 0:
