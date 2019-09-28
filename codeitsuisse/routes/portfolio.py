@@ -9,14 +9,12 @@ from flask import request, jsonify, Blueprint
 # from codeitsuisse import app
 
 logger = logging.getLogger(__name__)
-
 maximise = Blueprint('maximise', __name__)
 
 @maximise.route('/maximise_1a', methods=['POST'])
 def maximise_1a():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-
 
     result = { "profit": 0,
                 "portfolio":[]
@@ -58,7 +56,6 @@ def maximise_1a():
 
     for count in range(1,(len(stocks)+1)//2):
         cur = 0
-
         price = 0
         profit = 0
         port = []
@@ -96,14 +93,10 @@ def maximise_1a():
     logging.info("My result :{}".format(answer[0]))
     return json.dumps(answer[0])
 
-
-
-
 @maximise.route('/maximise_1b', methods=['POST'])
-def maximise_1a():
+def maximise_1b():
 data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-
 
     result = { "profit": 0,
                 "portfolio":[]
@@ -134,7 +127,6 @@ data = request.get_json()
             result['profit'] += float(stock[1])
             capital -= float(stock[2])
 
-
     # greedy yield
     for stock in stocks.tolist()[::-1]:
         if capital > float(stock[2]):
@@ -147,12 +139,58 @@ data = request.get_json()
 
     master.append(result)
 
-
-
     # ------- end of greedy -----------
 
-
     answer = sorted(master, key = lambda i: i['profit'], reverse=True)
+
+    logging.info("My result :{}".format(answer[0]))
+    return json.dumps(answer[0])
+    
+@maximise.route('/maximise_1c', methods=['POST'])
+def maximise_1c():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    
+    result = { "profit": 0,
+                "portfolio":[]
+                }
+    master = []
+
+    capital = data.get("startingCapital")
+    capitall = data.get("startingCapital")
+
+    # 2d array
+    stocks = data.get("stocks")
+
+    # ---- Greedy algo start ----------
+    npstocks = np.array(stocks)
+    small = []
+    for i in stocks:
+        small.append([i[1]/i[2]])
+
+    yields = np.array(small)
+    stocks = np.append(npstocks, yields, axis=1)
+    stocks[stocks[:,3].argsort()]
+    # print(stocks)
+
+    # # buy all stocks
+    # for stock in stocks.tolist()[::-1]:
+    #     if capital > float(stock[2]):
+    #         result['portfolio'].append(stock[0])
+    #         result['profit'] += float(stock[1])
+    #         capital -= float(stock[2])
+
+    # greedy yield
+    for stock in stocks.tolist()[::-1]:
+        if capital > float(stock[2]):
+            # print('before ' + str(capital))
+            while capital // float(stock[2]) >= 1:
+                result['portfolio'].append(stock[0])
+                result['profit'] += float(stock[1])
+                capital -= float(stock[2])
+                # print('after ' + str(capital))
+
+    master.append(result)
 
     logging.info("My result :{}".format(answer[0]))
     return json.dumps(answer[0])
