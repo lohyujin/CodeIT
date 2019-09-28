@@ -9,7 +9,11 @@ from flask import request, jsonify, Blueprint
 from codeitsuisse import app
 
 logger = logging.getLogger(__name__)
-
+logging.basicConfig(
+        filename= 'log_typing_contest.txt',
+        format='%(asctime)s %(levelname)s: %(message)s',
+        level=logging.INFO
+    )
 mod = Blueprint('typing-contest', __name__)
 
 @mod.route('/typing-contest', methods=['POST'])
