@@ -32,15 +32,17 @@ def evaluate():
                             is_palindrome = False
 
                     if is_palindrome:
+                        subtotal = 1
                         for a in range(len(sub_array)//2):
                             if sub_array[a] == -1 and sub_array[(a+1)*-1] == -1:
-                                total += k
+                                subtotal *= k
                             else:
-                                total += 1
+                                subtotal *= 1
                         if sub_array[len(sub_array)//2] == -1:
-                            total += k
+                            subtotal *= k
                         else:
-                            total += 1
+                            subtotal *= 1
+                        total += subtotal
                     # if sub_array == sub_array[::-1]:
                     #     num_rand = sub_array.count(-1)
                     #     if num_rand % 2 == 0:
