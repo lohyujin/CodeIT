@@ -26,17 +26,32 @@ def evaluate():
             for sub in range(3, n+1, 2):
                 for i in range(n-sub+1):
                     sub_array = password[i:i+sub]
-                    if sub_array == sub_array[::-1]:
-                        num_rand = sub_array.count(-1)
-                        if num_rand % 2 == 0:
-                            num = num_rand // 2
-                        else:
-                            num = num_rand // 2 + 1
+                    is_palindrome = True
+                    for a in range(len(sub_array)//2):
+                        if sub_array[a] != -1 and sub_array[(a+1)*-1] != -1 and sub_array[a] != sub_array[(a+1)*-1]:
+                            is_palindrome = False
 
-                        total += k ** num 
+                    if is_palindrome:
+                        for a in range(len(sub_array)//2):
+                            if sub_array[a] == -1 and sub_array[(a+1)*-1] == -1:
+                                total += k
+                            else:
+                                total += 1
+                        if sub_array[len(sub_array)//2] == -1:
+                            total += k
+                        else:
+                            total += 1
+                    # if sub_array == sub_array[::-1]:
+                    #     num_rand = sub_array.count(-1)
+                    #     if num_rand % 2 == 0:
+                    #         num = num_rand // 2
+                    #     else:
+                    #         num = num_rand // 2 + 1
+
+                    #     total += k ** num 
     
         total = total % 998244353
         result.append(total)
 
     logging.info("My result :{}".format(result))
-    return jsonify(result=result)
+    return json.dumps(result)
