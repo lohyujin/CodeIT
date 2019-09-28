@@ -2,9 +2,29 @@ import logging
 import socket
 from codeitsuisse import app
 from codeitsuisse.routes.square import square
+from codeitsuisse.routes.chessgame import mod
+from codeitsuisse.routes.rpone import rpone
+from codeitsuisse.routes.weddingnightmare import weddingnightmare
+from codeitsuisse.routes.typing_contest import mod
+from codeitsuisse.routes.portfolio import maximise
+from codeitsuisse.routes.compo import compo
+from codeitsuisse.routes.defuse import defuse
+from codeitsuisse.routes.exponent import exponent
+from codeitsuisse.routes.lottery import lottery
+from codeitsuisse.routes.dependency import dependency
+
 logger = logging.getLogger(__name__)
 
 app.register_blueprint(square)
+app.register_blueprint(mod)
+app.register_blueprint(rpone)
+app.register_blueprint(weddingnightmare)
+app.register_blueprint(maximise)
+app.register_blueprint(compo)
+app.register_blueprint(defuse)
+app.register_blueprint(exponent)
+app.register_blueprint(lottery)
+app.register_blueprint(dependency)
 
 @app.route('/')
 def default_route():
