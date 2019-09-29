@@ -7,7 +7,7 @@ def loop(txt, n):
     #     print(txt)
 
     # stop condition
-    if len(txt) <= n:
+    if len(txt) < n:
         return txt
     toreturn = ''
     remaining = txt

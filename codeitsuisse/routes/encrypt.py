@@ -15,7 +15,7 @@ encrypt = Blueprint('encrypt', __name__)
 def evaluate():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-    print(type(data))
+    # print(type(data))
     result = []
 
     for case in data:
@@ -29,7 +29,30 @@ def evaluate():
 
         # encrypting...
         answer = loop(txt, n)
-        result.append(answer)
+        result = [""] * len(txt)
 
-    logging.info("My result :{}".format(result))
+
+
+    # first one
+    result[0] = txt[0]
+    txt = txt[1:]
+    counter = 0
+    # start encrypting
+    while "" in result:
+        for i in range(len(result)):
+            # result[i] = txt[0]
+            # txt = txt[1:]
+            # result divisible by n
+            if (i+counter) % n == 0:
+                # empty cell
+                if result[i] == '':
+                    result[i] = txt[0]
+                    txt = txt[1:]
+                    counter += 1
+                else:
+                    pass
+            else:
+                pass
+
+    logging.info("My result :{}".format(''.join(result)))
     return json.dumps(result)
