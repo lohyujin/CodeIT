@@ -12,6 +12,7 @@ from codeitsuisse.routes.defuse import defuse
 from codeitsuisse.routes.exponent import exponent
 from codeitsuisse.routes.lottery import lottery
 from codeitsuisse.routes.dependency import dependency
+from codeitsuisse.routes.encrypt import encrypt
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +26,7 @@ app.register_blueprint(defuse)
 app.register_blueprint(exponent)
 app.register_blueprint(lottery)
 app.register_blueprint(dependency)
+app.register_blueprint(encrypt)
 
 @app.route('/')
 def default_route():
