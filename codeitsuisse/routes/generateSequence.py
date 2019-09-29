@@ -37,9 +37,31 @@ def evaluate():
         result = toposort_flatten(dep, sort=True)
     except ValueError as e:
         modules = input_modules.copy()
+        for mod in e.data.values():
+            for a in mod:
+                if a in modules:
+                    modules.remove(a)
         for mod in e.data.keys():
-            modules.remove(mod)
-        result = getSequence({'modules': modules, 'dependencyPairs':input_dependency})
+            if mod in modules:
+                modules.remove(mod)
+
+        input_modules = modules
+
+        dep = {}
+        for pairs in input_dependency:
+            dependee = pairs['dependee']
+            dependentOn = pairs['dependentOn']
+            if dependee in input_modules:
+                if dependee not in dep:
+                    dep[dependee] = {dependentOn}
+                else:
+                    dep[dependee].add(dependentOn)
+        
+        for module in input_modules:
+            if module not in dep:
+                dep[module] = {module}
+        
+        result = toposort_flatten(dep, sort=True)
 
     logging.info("My result :{}".format(result))
     return json.dumps(result)
