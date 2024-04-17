@@ -6,7 +6,7 @@ configparser==3.5.0
 enum34==1.1.6
 flake8==3.4.1
 Flask==1.0.2
-gunicorn==19.9.0
+gunicorn==22.0.0
 idna==2.6
 itsdangerous==0.24
 Jinja2==2.10
